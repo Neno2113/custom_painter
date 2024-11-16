@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_declarations
+
 import 'package:flutter/material.dart';
 
 class SquareHeader extends StatelessWidget {
@@ -350,3 +352,79 @@ class _WaveHeaderBelowPainter extends CustomPainter {
   }
 
 }
+
+
+
+
+
+class WaveGradientHeader extends StatelessWidget {
+  const WaveGradientHeader({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      // color: const Color(0xff615AAB),
+      child: CustomPaint(
+        painter: _WaveGradientHeaderPainter(),
+      ),
+    );
+  }
+}
+
+class _WaveGradientHeaderPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+
+    final Rect rect = Rect.fromCircle(
+      center: const Offset(150.0, 55.0), 
+      radius: 180
+    );
+
+    final Gradient gradient = const LinearGradient(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+      colors: <Color>[
+        Color(0xff6D05E8),
+        Color(0xffC012FF),
+        Color(0xff6D05FA),
+      ],
+      stops: [
+        0.2,
+        0.5,
+        1.0
+      ]
+    );
+
+    final pencil = Paint() ..shader = gradient.createShader(rect);
+
+    // Propiedades
+    // pencil.color = Colors.red;
+    pencil.style = PaintingStyle.fill; //stroke or fill
+    pencil.strokeWidth = 20;
+
+    final path = Path();
+
+    // Dibujar con el path y el lápiz  
+    path.lineTo(0, size.height * 0.25);
+    // path.lineTo(size.width, size.height * 0.25);
+    path.quadraticBezierTo( size.width * 0.25, size.height * 0.30, size.width * 0.5, size.height * 0.25);
+    path.quadraticBezierTo( size.width * 0.75, size.height * 0.20, size.width, size.height * 0.25);
+    path.lineTo(size.width, 0);
+    // path.lineTo(size.width, 0);
+    // path.lineTo(0, 0);
+    // path.lineTo(size.width, size.height);
+
+
+    canvas.drawPath(path, pencil);
+
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+

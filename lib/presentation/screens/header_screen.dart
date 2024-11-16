@@ -7,7 +7,7 @@ class HeaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: WaveHeaderBelow(),
+      body: WaveGradientHeader(),
     );
   }
 }
