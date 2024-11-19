@@ -17,9 +17,7 @@ class AnimatedSquareScreen extends StatelessWidget {
 }
 
 class _AnimatedSquare extends StatefulWidget {
-  const _AnimatedSquare({
-    super.key,
-  });
+  const _AnimatedSquare();
 
   @override
   State<_AnimatedSquare> createState() => _AnimatedSquareState();
@@ -52,7 +50,7 @@ class _AnimatedSquareState extends State<_AnimatedSquare> {
 
 
 class _Rectangulo extends StatelessWidget {
-  const _Rectangulo({super.key});
+  const _Rectangulo();
 
   @override
   Widget build(BuildContext context) {
