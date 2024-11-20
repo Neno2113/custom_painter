@@ -1,29 +1,30 @@
-
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
-class CircularProgressScreen extends StatefulWidget {
-  const CircularProgressScreen({super.key});
+class RadialProgress extends StatefulWidget {
+
+  final porcentaje;
+
+  const RadialProgress({super.key, this.porcentaje});
 
   @override
-  State<CircularProgressScreen> createState() => _CircularProgressScreenState();
+  State<RadialProgress> createState() => _RadialProgressState();
 }
 
-class _CircularProgressScreenState extends State<CircularProgressScreen> with SingleTickerProviderStateMixin {
+class _RadialProgressState extends State<RadialProgress> with SingleTickerProviderStateMixin {
 
   late AnimationController controller;
-  double porcentaje = 10;
+  double previousPercentage = 0.0;
 
   @override
   void initState() {
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration( milliseconds: 800 ),
-    );
+
+    previousPercentage = widget.porcentaje;
+    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 200));
+
     super.initState();
   }
+
 
   @override
   void dispose() {
@@ -31,33 +32,30 @@ class _CircularProgressScreenState extends State<CircularProgressScreen> with Si
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton:  FloatingActionButton(
-        onPressed: (){
-          porcentaje += 10;
-          if ( porcentaje > 100 ) {
-            porcentaje = 0;
-          }
-          setState(() {});
-        },
-        backgroundColor: Colors.pink,
-        child: const Icon(Icons.refresh, color: Colors.white),
-      
-      ),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(5),
-          width: 300,
-          height: 300,
-          // color: Colors.red,
+
+    controller.forward(from: 0.0);
+
+    final differenceToAnimate = widget.porcentaje - previousPercentage;
+    previousPercentage = widget.porcentaje;
+
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, child) {
+
+        return Container(
+          padding: const EdgeInsets.all(10),
+          width: double.infinity,
+          height: double.infinity,
           child: CustomPaint(
-            painter: _MyRadialProgressPainter( porcentaje),
+            painter: _MyRadialProgressPainter( ( widget.porcentaje - differenceToAnimate ) + ( differenceToAnimate * controller.value) ),
           ),
-        ),
-      ),
+        );
+      },
     );
+
   }
 }
 
