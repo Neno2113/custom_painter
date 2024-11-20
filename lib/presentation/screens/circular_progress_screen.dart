@@ -11,10 +11,41 @@ class CircularProgressScreen extends StatefulWidget {
   State<CircularProgressScreen> createState() => _CircularProgressScreenState();
 }
 
-class _CircularProgressScreenState extends State<CircularProgressScreen> {
+class _CircularProgressScreenState extends State<CircularProgressScreen> with SingleTickerProviderStateMixin {
+
+  late AnimationController controller;
+  double porcentaje = 10;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration( milliseconds: 800 ),
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton:  FloatingActionButton(
+        onPressed: (){
+          porcentaje += 10;
+          if ( porcentaje > 100 ) {
+            porcentaje = 0;
+          }
+          setState(() {});
+        },
+        backgroundColor: Colors.pink,
+        child: const Icon(Icons.refresh, color: Colors.white),
+      
+      ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(5),
@@ -22,7 +53,7 @@ class _CircularProgressScreenState extends State<CircularProgressScreen> {
           height: 300,
           // color: Colors.red,
           child: CustomPaint(
-            painter: _MyRadialProgressPainter(),
+            painter: _MyRadialProgressPainter( porcentaje),
           ),
         ),
       ),
@@ -32,6 +63,12 @@ class _CircularProgressScreenState extends State<CircularProgressScreen> {
 
 
 class _MyRadialProgressPainter extends CustomPainter {
+  
+
+  final porcentaje;
+
+  _MyRadialProgressPainter( this.porcentaje );
+
   @override
   void paint(Canvas canvas, Size size) {
 
