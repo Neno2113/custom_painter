@@ -29,13 +29,54 @@ class _CircularGraphcsScreenState extends State<CircularGraphcsScreen> {
         backgroundColor: Colors.blueAccent,
         child: const Icon(Icons.refresh, color: Colors.white,),
       ),
-      body: Center(
-        child: Container(
-          width: 300,
-          height: 300,
-          // color: Colors.red,
-          child: RadialProgress( porcentaje: porcentaje ),
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(porcentaje: porcentaje, primaryColor: Colors.blueAccent),
+              CustomRadialProgress(porcentaje: porcentaje, primaryColor: Colors.redAccent),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomRadialProgress(porcentaje: porcentaje, primaryColor: Colors.purpleAccent),
+              CustomRadialProgress(porcentaje: porcentaje, primaryColor: Colors.greenAccent),
+            ],
+          )
+        ],
+      ) ,
+    );
+  }
+}
+
+class CustomRadialProgress extends StatelessWidget {
+
+  final Color primaryColor;
+
+  const CustomRadialProgress({
+    super.key,
+    required this.porcentaje,
+    required this.primaryColor
+  });
+
+  final double porcentaje;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 180,
+      height: 180,
+      // color: Colors.red,
+      child: RadialProgress( 
+        porcentaje: porcentaje,
+        primaryColor: primaryColor,
+        secondaryColor: Colors.black38,
+        primaryStrokeWidth: 10,
+        strokeWidth: 4,
       ),
     );
   }

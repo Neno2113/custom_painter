@@ -4,8 +4,19 @@ import 'package:flutter/material.dart';
 class RadialProgress extends StatefulWidget {
 
   final porcentaje;
+  final Color primaryColor;
+  final Color secondaryColor;
+  final double strokeWidth;
+  final double primaryStrokeWidth;
 
-  const RadialProgress({super.key, this.porcentaje});
+  const RadialProgress({
+    super.key, 
+    @required this.porcentaje,  
+    this.secondaryColor = Colors.grey,
+    this.primaryColor = Colors.blue,
+    this.strokeWidth = 4,
+    this.primaryStrokeWidth = 4
+  });
 
   @override
   State<RadialProgress> createState() => _RadialProgressState();
@@ -50,7 +61,13 @@ class _RadialProgressState extends State<RadialProgress> with SingleTickerProvid
           width: double.infinity,
           height: double.infinity,
           child: CustomPaint(
-            painter: _MyRadialProgressPainter( ( widget.porcentaje - differenceToAnimate ) + ( differenceToAnimate * controller.value) ),
+            painter: _MyRadialProgressPainter( 
+              ( widget.porcentaje - differenceToAnimate ) + ( differenceToAnimate * controller.value),
+              widget.primaryColor, 
+              widget.secondaryColor,
+              widget.strokeWidth,
+              widget.primaryStrokeWidth
+            ),
           ),
         );
       },
@@ -64,18 +81,41 @@ class _MyRadialProgressPainter extends CustomPainter {
   
 
   final porcentaje;
+  final Color primaryColor;
+  final Color secondaryColor;
+  final double strokeWidth;
+  final double primaryStrokeWidth;
 
-  _MyRadialProgressPainter( this.porcentaje );
+  _MyRadialProgressPainter( 
+    this.porcentaje, 
+    this.primaryColor, 
+    this.secondaryColor,
+    this.strokeWidth,
+    this.primaryStrokeWidth
+  );
 
   @override
   void paint(Canvas canvas, Size size) {
 
+    final Gradient gradient = const LinearGradient(
+      colors: <Color>[
+        Color(0xffC012FF),
+        Color(0xff6d05e8),
+        Colors.red,
+        // Colors.blue,
+        // Colors.yellow
+      ] 
+    );
 
+    final Rect rect = Rect.fromCircle(
+      center: const Offset(0,0) , 
+      radius: 180
+    );
 
     // Circulo completado
     final pencil = Paint()
-      ..strokeWidth = 4
-      ..color = Colors.grey
+      ..strokeWidth = strokeWidth
+      ..color = secondaryColor
       ..style = PaintingStyle.stroke;
 
     final center = Offset(size.width * 0.5, size.height / 2);
@@ -87,8 +127,10 @@ class _MyRadialProgressPainter extends CustomPainter {
 
     // Arco
     final pencilArc = Paint()
-      ..strokeWidth = 10
-      ..color = Colors.pink
+      ..strokeWidth = primaryStrokeWidth
+      // ..color = primaryColor
+      ..shader = gradient.createShader(rect)
+      ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
     // Parte que se deberá ir llenando
