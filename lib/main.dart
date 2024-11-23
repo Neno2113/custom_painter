@@ -1,6 +1,7 @@
 // import 'package:custom_painter/presentation/challenges/animated_square_screen.dart';
 // import 'package:custom_painter/presentation/labs/circular_progress_screen.dart';
-import 'package:custom_painter/presentation/screens/circular_graphics_screen.dart';
+// import 'package:custom_painter/presentation/screens/circular_graphics_screen.dart';
+import 'package:custom_painter/presentation/screens/slideshow_screen.dart';
 // import 'package:custom_painter/presentation/screens/animations_screen.dart';
 // import 'package:custom_painter/presentation/screens/header_screen.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const CircularGraphcsScreen(),
+      home: const SlideshowScreen(),
     );
   }
 }
