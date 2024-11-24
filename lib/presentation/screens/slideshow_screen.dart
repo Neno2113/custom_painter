@@ -1,128 +1,47 @@
-
+import 'package:custom_painter/presentation/widgets/slideshow.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
+
+
+
 
 class SlideshowScreen extends StatelessWidget {
   const SlideshowScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: _Slides()
-            ),
-             const _Dots(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class _Dots extends StatelessWidget {
-  const _Dots();
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      width: double.infinity,
-      height: 70,
-      // color: Colors.red,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return const Scaffold(
+      // backgroundColor: Colors.accents[1],
+      body: Column(
         children: [
-          _Dot(0),
-          _Dot(1),
-          _Dot(2),
+          Expanded(child: MySlideShow()),
+          Expanded(child: MySlideShow()),
         ],
       ),
     );
   }
 }
 
-class _Dot extends StatelessWidget {
-
-  final int index;
-
-  const _Dot(this.index);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 12,
-      height: 12,
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      decoration: const BoxDecoration(
-        color: Colors.grey,
-        shape: BoxShape.circle
-      ),
-    );
-  }
-}
-
-class _Slides extends StatefulWidget {
-
-
-  @override
-  State<_Slides> createState() => _SlidesState();
-}
-
-class _SlidesState extends State<_Slides> {
-
-  final pageViewcontroller = PageController();
-
-
-  @override
-  void initState() {
-    super.initState();
-
-    pageViewcontroller.addListener(() {
-      print('Pagina actual: ${pageViewcontroller.page}');
-    });
-    
-  }
-
-
-  @override
-  void dispose() {
-    pageViewcontroller.dispose();
-    super.dispose();
-  }
+class MySlideShow extends StatelessWidget {
+  const MySlideShow({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: PageView(
-        controller: pageViewcontroller,
-        children: [
-          const _Slide('assets/svgs/slide-1.svg'),
-          const _Slide('assets/svgs/slide-2.svg'),
-          const _Slide('assets/svgs/slide-3.svg'),
-        ],
-      ),
-    );
-  }
-}
-
-class _Slide extends StatelessWidget {
-
-  final String svg;
-
-  const _Slide(this.svg );
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      padding: const EdgeInsets.all(30),
-      child:  SvgPicture.asset(svg),
+    return Slideshow( 
+      primaryBullet: 20,
+      secondaryBullet: 12,
+      dotsTop: false,
+      primaryColor: const Color(0xffFF5A7E),
+      secondaryColor: Colors.grey,
+      slides: [
+        SvgPicture.asset('assets/svgs/slide-1.svg'),
+        SvgPicture.asset('assets/svgs/slide-2.svg'),
+        SvgPicture.asset('assets/svgs/slide-3.svg'),
+        SvgPicture.asset('assets/svgs/slide-4.svg'),
+        SvgPicture.asset('assets/svgs/slide-5.svg'),
+      ],
     );
   }
 }
