@@ -7,29 +7,45 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class IconHeader extends StatelessWidget {
 
-  IconHeader({super.key});
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color color1;
+  final Color color2;
 
-  Color whiteColor = Colors.white.withOpacity(0.7);
+  const IconHeader({
+    super.key, 
+    required this.icon, 
+    required this.title, 
+    required this.subtitle, 
+    this.color1 = Colors.grey, 
+    this.color2 = Colors.blueGrey
+  });
+
 
   @override
   Widget build(BuildContext context) {
+
+
+    Color whiteColor = Colors.white.withOpacity(0.7);
+
     return Stack(
       children: [
-        const _IconHeaderBackground(),
+        _IconHeaderBackground(color1, color2),
 
-        const Positioned(
+        Positioned(
           top: -50,
           left: -70,
-          child: FaIcon( FontAwesomeIcons.plus, size: 250, color: Colors.white10,)
+          child: FaIcon( icon, size: 250, color: Colors.white10,)
         ),
         Column(
           children: [
             const SizedBox( height: 80, width: double.infinity,),
-            Text('Haz solicitado', style: TextStyle(fontSize: 20, color: whiteColor),),
+            Text(subtitle, style: TextStyle(fontSize: 20, color: whiteColor),),
             const SizedBox( height: 20,),
-            const Text('Asistencia medica', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),),
+            Text(title, style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),),
             const SizedBox( height: 20,),
-            const FaIcon( FontAwesomeIcons.plus, size: 80, color: Colors.white,)
+            FaIcon( icon, size: 80, color: Colors.white,)
 
           ],
         )
@@ -39,22 +55,26 @@ class IconHeader extends StatelessWidget {
 }
 
 class _IconHeaderBackground extends StatelessWidget {
-  const _IconHeaderBackground();
+
+  final Color color1;
+  final Color color2;
+
+  const _IconHeaderBackground(this.color1, this.color2);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 300,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
       // color: Colors.red,
-      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80)),
+      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(80)),
       gradient: LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
         colors: [
-          Color(0xff526bf6),
-          Color(0xff67acf2),
+          color1,
+          color2
         ]
       )
     
