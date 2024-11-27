@@ -34,32 +34,72 @@ class EmergencyScreen extends StatelessWidget {
       ItemBoton( FontAwesomeIcons.masksTheater, 'Theft / Harrasement', const Color(0xffF2D572), const Color(0xffE06AA3) ),
       ItemBoton( FontAwesomeIcons.personBiking, 'Awards', const Color(0xff317183), const Color(0xff46997D) ),
     ];
+    
+    List<Widget> itemMap = items.map((item) => FatButton(
+      text: item.texto,
+      icon: item.icon,
+      color1: item.color1,
+      color2: item.color2,
+      onPress: (){
+        print('Motor Accident');
+      },
+    )).toList();
 
     return Scaffold(
       // backgroundColor: Colors.redAccent,
       body: Stack(
         children: [
-          ListView(
-          children: [
-            const SizedBox( height: 250,),
-            const FatButtonTemp(),
-            const FatButtonTemp(),
-            const FatButtonTemp(),
-            const FatButtonTemp(),
-            const FatButtonTemp(),
-            const FatButtonTemp(),
-            const FatButtonTemp(),
-          ],
-        ),
-          const IconHeader(
-            icon: FontAwesomeIcons.plus,
-            title: 'Asistencia Médica',
-            subtitle: 'Haz solicitado',
-            color1: Colors.redAccent,
-            color2: Colors.black87,
+          Container(
+            margin: const EdgeInsets.only(top: 200),
+            child: ListView(
+              physics: const BouncingScrollPhysics(),
+            children: [
+              const SizedBox( height: 80,),
+              ...itemMap    
+            ],
+                    ),
           ),
+          const _Header(),
         ],
       ),
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+
+
+  const _Header({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+
+        const IconHeader(
+          icon: FontAwesomeIcons.plus,
+          title: 'Asistencia Médica',
+          subtitle: 'Haz solicitado',
+          color1: Colors.redAccent,
+          color2: Colors.black87,
+        ),
+
+        Positioned(
+          right: 0,
+          top: 45,
+          child: RawMaterialButton(
+            onPressed: (){},
+            shape: const CircleBorder(),
+            padding: const EdgeInsets.all(15),
+            child: 
+            const FaIcon( 
+              FontAwesomeIcons.ellipsisVertical, color: Colors.white,
+            )
+          ), 
+        )
+      ],
     );
   }
 }

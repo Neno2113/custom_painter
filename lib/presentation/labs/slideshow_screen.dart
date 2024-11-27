@@ -1,9 +1,9 @@
 
-import 'package:custom_painter/presentation/providers/slider_model.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+
+import 'package:custom_painter/presentation/providers/slider_model.dart';
 
 class SlideshowScreen extends StatelessWidget {
   const SlideshowScreen({super.key});

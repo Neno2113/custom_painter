@@ -25,7 +25,7 @@ class FatButton extends StatelessWidget {
       onTap: onPress as GestureTapCallback,
       child: Stack(
         children: [
-          _FatButtonBackground(color1, color2),
+          _FatButtonBackground(color1, color2, icon),
       
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,10 +46,11 @@ class FatButton extends StatelessWidget {
 
 class _FatButtonBackground extends StatelessWidget {
 
-   final Color color1;
+  final IconData icon;
+  final Color color1;
   final Color color2;
 
-  const _FatButtonBackground(this.color1, this.color2);
+  const _FatButtonBackground(this.color1, this.color2, this.icon);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class _FatButtonBackground extends StatelessWidget {
         child: Stack(
           children: [
             Positioned(
-              child: FaIcon( FontAwesomeIcons.carBurst, size: 150, color: Colors.white.withOpacity(0.2),),
+              child: FaIcon( icon, size: 150, color: Colors.white.withOpacity(0.2),),
               top: -20,
               right: -20,
             )
