@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:custom_painter/presentation/widgets/emergency_header.dart';
 import 'package:custom_painter/presentation/widgets/fat_button.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +36,17 @@ class EmergencyScreen extends StatelessWidget {
       ItemBoton( FontAwesomeIcons.personBiking, 'Awards', const Color(0xff317183), const Color(0xff46997D) ),
     ];
     
-    List<Widget> itemMap = items.map((item) => FatButton(
-      text: item.texto,
-      icon: item.icon,
-      color1: item.color1,
-      color2: item.color2,
-      onPress: (){
-        print('Motor Accident');
-      },
+    List<Widget> itemMap = items.map((item) => FadeInLeft(
+      duration: Duration( milliseconds: 250 ),
+      child: FatButton(
+        text: item.texto,
+        icon: item.icon,
+        color1: item.color1,
+        color2: item.color2,
+        onPress: (){
+          print('Motor Accident');
+        },
+      ),
     )).toList();
 
     return Scaffold(
