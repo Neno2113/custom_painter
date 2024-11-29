@@ -3,8 +3,9 @@
 // import 'package:custom_painter/presentation/screens/circular_graphics_screen.dart';
 // import 'package:custom_painter/presentation/screens/animations_screen.dart';
 // import 'package:custom_painter/presentation/screens/header_screen.dart';
-import 'package:custom_painter/presentation/screens/emergency_screen.dart';
-import 'package:custom_painter/presentation/screens/pinteres_screen.dart';
+// import 'package:custom_painter/presentation/screens/emergency_screen.dart';
+// import 'package:custom_painter/presentation/screens/pinteres_screen.dart';
+import 'package:custom_painter/presentation/screens/sliver_list.dart';
 // import 'package:custom_painter/presentation/screens/slideshow_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const EmergencyScreen(),
+      home: const SliverListScreen(),
     );
   }
 }
